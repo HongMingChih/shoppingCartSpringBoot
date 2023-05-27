@@ -1,0 +1,46 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /training
+  tomcat:
+    threads:
+      max: 200
+    uri-encoding: UTF-8
+    basedir: /data/logs/training/access_log
+    accesslog:
+      enabled: true
+      pattern: '{"i":"%{X-Forwarded-For}i","a":"%a","A":"%A","t":"%{yyyy-MM-dd HH:mm:ss.SSS}t","m":"%m","U":"%U","s":%s,"b":%b,"D":%D,"I":"%I"}'
+      suffix: .log
+
+
+
+spring:
+  profiles:
+    active: local
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+       hibernate:
+        format_sql: true
+      
+       
+# 建立 DataSource 設置 prefix 前綴 springboot.datasource.oracle (自訂)
+# 最後一層設置 jdbc-url、username、password、driverClassName、maximumPoolSize、connectionTimeout (預設)
+springboot:
+  datasource:
+    oracle:
+      jdbc-url: jdbc:oracle:thin:@localhost:1521:xe
+      username:
+      password: 
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      maximumPoolSize:
+      connectionTimeout: 30000
+    mysql:
+      jdbc-url: jdbc:mysql://localhost:3306/local_db
+      username:
+      password:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      maximumPoolSize: 2
+      connectionTimeout: 30000
